@@ -1,1 +1,1 @@
-web: gunicorn kimkosva.me_backend.wsgi
+web: gunicorn kimkosva_backend.wsgi
