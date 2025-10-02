@@ -3,4 +3,5 @@ gunicorn
 dj-database-url
 psycopg2-binary
 whitenoise
+mongoengine==0.29.1
 
