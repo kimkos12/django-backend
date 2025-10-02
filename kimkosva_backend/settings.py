@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-m-l=1ab*34gs0ctq!yabog(7-y$x4(r)nsqs9vq^%50x0_v47f
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -135,7 +134,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://kimkosva.me",   # ✅ Your real frontend domain
+    "https://github.com/kimkos12/kimkos12",   # ✅ Your real frontend domain
     "http://localhost:3000", # ✅ Optional, for local React/JS testing
 ]
 
