@@ -134,7 +134,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://github.com/kimkos12/kimkos12",   # ✅ Your real frontend domain
+    "https://kimkosva.me",   # ✅ Your real frontend domain
     "http://localhost:3000", # ✅ Optional, for local React/JS testing
 ]
 

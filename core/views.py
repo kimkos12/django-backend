@@ -1,54 +1,35 @@
 from django.http import JsonResponse
-from django.shortcuts import render
-from .models import Contact, Project
+from django.shortcuts import render, get_object_or_404
+from .models import Project, Contact
 
-
-# ✅ Home
+# Homepage
 def home(request):
     return JsonResponse({"message": "Welcome to Kimkosva Backend!"})
 
-
-# ✅ Contact API (POST only)
+# Contact form submission
 def save_contact(request):
     if request.method == "POST":
-        data = request.POST
-        contact = Contact(
-            name=data.get("name"),
-            email=data.get("email"),
-            message=data.get("message"),
-        )
-        contact.save()
-        return JsonResponse({"status": "success"})
-    return JsonResponse({"error": "POST required"}, status=400)
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
 
+        Contact.objects.create(name=name, email=email, message=message)
 
-# ✅ Simple browser form (for testing)
-def contact_form(request):
-    if request.method == "POST":
-        data = request.POST
-        Contact(
-            name=data.get("name"),
-            email=data.get("email"),
-            message=data.get("message")
-        ).save()
-        return JsonResponse({"status": "success"})
-    return render(request, "contact_form.html")
+        return JsonResponse({"status": "success", "message": "Contact saved!"})
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
-
-# ✅ Projects API
+# List all projects
 def project_list(request):
-    projects = Project.objects.all().values(
-        "id", "title", "description", "link", "created_at"
-    )
+    projects = Project.objects.all().values("id", "title", "description", "link")
     return JsonResponse(list(projects), safe=False)
 
-
+# Single project details
 def project_detail(request, project_id):
-    try:
-        project = Project.objects.values(
-            "id", "title", "description", "link", "created_at"
-        ).get(id=project_id)
-        return JsonResponse(project, safe=False)
-    except Project.DoesNotExist:
-        return JsonResponse({"error": "Project not found"}, status=404)
-
+    project = get_object_or_404(Project, id=project_id)
+    data = {
+        "id": project.id,
+        "title": project.title,
+        "description": project.description,
+        "link": project.link,
+    }
+    return JsonResponse(data)

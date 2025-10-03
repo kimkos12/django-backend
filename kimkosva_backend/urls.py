@@ -16,16 +16,10 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from core  import views  # <— important
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
-    path('contact/', views.save_contact),
-    path('test-contact/', views.contact_form),
-    path('projects/', views.project_list),                     # all projects
-    path('projects/<int:project_id>/', views.project_detail),   # single project
+    path('', include('core.urls')),  # ✅ this now works
 ]
-
 
